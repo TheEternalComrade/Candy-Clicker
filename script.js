@@ -1,11 +1,13 @@
 //constants, values that will not change
 const candyBtn = document.getElementById("candy-btn")
 const upgradeClickBtn = document.getElementById("upgrade-click-btn")
+console.log(candyBtn)
 
 
 //variables. we're also going to 
 let totalCandy = 0
 const totalCandyDisplay = document.getElementById("total-candies")
+
 
 let candyPerClick = 1
 const candyPerClickDisplay = document.getElementById("candies-per-click")
@@ -25,7 +27,7 @@ upgradeClickBtn.addEventListener("click", buyClickUpgrade)
 
 //function that adds candy to our total based on candy/click number, so long as we have less than 5000 candies
 function addCandy(){
-   totalCandy += 1
+   totalCandy += candyPerClick
    totalCandyDisplay.innerHTML = "candy: " + totalCandy
 }
 
@@ -36,4 +38,13 @@ function canUserIncreaseClick(){
 
 //buy a click upgrade if we have enough coins. also used Math.trunc to remove pesky decimals
 function buyClickUpgrade(){
+   if(totalCandy >= clickUpgradeCost){
+      totalCandy -= clickUpgradeCost
+      totalCandyDisplay.innerHTML = "candies: " + totalCandy
+      candyPerClick += 5
+      candyPerClickDisplay.innerHTML = "candies/click: " + candyPerClick
+      clickUpgradeCost = Math.round(clickUpgradeCost *= 1.50)
+      upgradeClickBtn.innerHTML = "Get 5 more candies/click for " + clickUpgradeCost + " candies"
+
+   }
 }
