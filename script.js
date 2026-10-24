@@ -20,6 +20,7 @@ let clickUpgradeCost = 25;
 /**first we add an event listener, which waits for a specifc thing to happen to an element
  and runs a function**/
 candyBtn.addEventListener("click", addCandy)
+candyBtn.addEventListener("click", canUserIncreaseClick)
 
 //we add event listeners after variables but before main code. add another to run a function when 
 // the upgrade button is clicked*/
@@ -33,6 +34,18 @@ function addCandy(){
 
 //check to see if we can buy an upgrade, so we can grey out or brighten purchase button. adds or removes special css classes
 function canUserIncreaseClick(){
+   if(totalCandy >= 5000){
+      document.body.innerHTML = "You've finally paid your debts to the candy mafia! Congrats. What? You want to do this again? The threat of getting your knees broken by the mafia fills you with excitement? Woah, what a freak. Welp, reload if you wanna do that."
+   }
+   
+   if(totalCandy >= clickUpgradeCost){
+      upgradeClickBtn.classList.remove("too-broke")
+      upgradeClickBtn.classList.add("not-broke")
+   }
+   else if(totalCandy < clickUpgradeCost){
+      upgradeClickBtn.classList.remove("not-broke")
+      upgradeClickBtn.classList.add("too-broke")
+   }
 }
 
 
@@ -41,10 +54,21 @@ function buyClickUpgrade(){
    if(totalCandy >= clickUpgradeCost){
       totalCandy -= clickUpgradeCost
       totalCandyDisplay.innerHTML = "candies: " + totalCandy
-      candyPerClick += 5
+      candyPerClick += 500
       candyPerClickDisplay.innerHTML = "candies/click: " + candyPerClick
       clickUpgradeCost = Math.round(clickUpgradeCost *= 1.50)
       upgradeClickBtn.innerHTML = "Get 5 more candies/click for " + clickUpgradeCost + " candies"
 
    }
+   canUserIncreaseClick()
 }
+
+
+
+
+
+
+
+
+
+
